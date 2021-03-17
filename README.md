@@ -2,6 +2,8 @@
 
 example of [EasyHttpRpc](https://gist.github.com/nekomimi-daimao/e5726cde473de30a12273cd827779704)
 
+![execute-api](/readme/execute-api.gif)
+
 ## How to use (en)
 
 1. Install the VSCode plugin [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client).
