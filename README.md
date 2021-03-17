@@ -4,6 +4,43 @@ example of [EasyHttpRpc](https://gist.github.com/nekomimi-daimao/e5726cde473de30
 
 ![execute-api](/readme/execute-api.gif)
 
+```c#
+private EasyHttpRPC _easyHttpRPC;
+
+private void Start()
+{
+    // newするとサーバが起動する.CancellationTokenが必要.
+    // 任意でポート番号も指定できる.デフォルトは1234.
+    _easyHttpRPC = new EasyHttpRPC(this.GetCancellationTokenOnDestroy());
+
+    // 外から呼び出すメソッドを登録する.
+    _easyHttpRPC.RegisterRPC(nameof(Instantiate), Instantiate);
+}
+
+// 引数のNameValueCollectionにはGetのパラメータがそのまま入っている.
+// Taskなので終了まで待ってからレスポンスを返せる.
+private async Task<string> Instantiate(NameValueCollection arg)
+{
+    await UniTask.SwitchToMainThread();
+
+    var argColor = arg["color"];
+    if (string.IsNullOrEmpty(argColor) || !ColorUtility.TryParseHtmlString(argColor, out var color))
+    {
+        color = Color.white;
+    }
+
+    var argCount = arg["count"];
+    if (!int.TryParse(argCount, out var count))
+    {
+        count = 0;
+    }
+
+    await _primitiveSupplier.Instantiate(color, count);
+    return "SUCCESS";
+}
+
+```
+
 ## How to use (en)
 
 1. Install the VSCode plugin [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client).
