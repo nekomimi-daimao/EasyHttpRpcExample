@@ -1,0 +1,30 @@
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+# enter your address
+@baseurl = http://192.168.00.00:1234/
+
+###
+
+# instantiate cube
+GET  {{baseurl}}instantiate
+?count=10
+&color=%2300FF00
+
+### 
+
+# count instantiated cube
+GET  {{baseurl}}count
+
+### 
+
+# throw error
+GET  {{baseurl}}error
+?something=1
+&error=2
+
+###
+
+# post string
+POST  {{baseurl}}post
+
+!"#$%&'()=~|¥@[+*}]
